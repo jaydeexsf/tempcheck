@@ -159,7 +159,8 @@ export default function Navbar() {
             className={pathname === '/' ? 'active-pill' : 'pill-item'}
             onMouseEnter={() => setActiveDropdown(null)}
           >
-            Home
+            <span>Home</span>
+            {pathname === '/' && <motion.span layoutId="navbar-active-pill" className="navbar-active-indicator" transition={{ type: 'spring', stiffness: 170, damping: 28 }} />}
           </Link>
 
           {/* Products Dropdown Trigger */}
@@ -182,6 +183,7 @@ export default function Navbar() {
               }}
             >
               <span>Products</span>
+              {pathname.startsWith('/docs') || pathname === '/integrations' || pathname === '/status' ? <motion.span layoutId="navbar-active-pill" className="navbar-active-indicator" transition={{ type: 'spring', stiffness: 170, damping: 28 }} /> : null}
               {/* Sleek SVG Chevron Arrow with Framer Motion Rotation */}
               <motion.svg
                 width="11"
@@ -287,7 +289,8 @@ export default function Navbar() {
             className={pathname === '/pricing' ? 'active-pill' : 'pill-item'}
             onMouseEnter={() => setActiveDropdown(null)}
           >
-            Pricing
+            <span>Pricing</span>
+            {pathname === '/pricing' && <motion.span layoutId="navbar-active-pill" className="navbar-active-indicator" transition={{ type: 'spring', stiffness: 170, damping: 28 }} />}
           </Link>
 
           {/* Resources Dropdown Trigger */}
@@ -310,6 +313,7 @@ export default function Navbar() {
               }}
             >
               <span>Resources</span>
+              {pathname === '/faq' || pathname === '/blog' || pathname === '/changelog' ? <motion.span layoutId="navbar-active-pill" className="navbar-active-indicator" transition={{ type: 'spring', stiffness: 170, damping: 28 }} /> : null}
               <motion.svg
                 width="11"
                 height="11"
@@ -429,6 +433,7 @@ export default function Navbar() {
               }}
             >
               <span>Company</span>
+              {pathname === '/about' || pathname === '/careers' || pathname === '/sla' || pathname === '/contact' ? <motion.span layoutId="navbar-active-pill" className="navbar-active-indicator" transition={{ type: 'spring', stiffness: 170, damping: 28 }} /> : null}
               <motion.svg
                 width="11"
                 height="11"
