@@ -1,0 +1,7 @@
+import Link from 'next/link';
+import Navbar from '@/components/global/Navbar';
+import Footer from '@/components/global/Footer';
+
+export default function ComingSoonPage() {
+  return <div className="app-layout" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)' }}><Navbar /><main style={{ flex: '1 0 auto', display: 'grid', placeItems: 'center', padding: '56px 24px' }}><section style={{ maxWidth: '600px', width: '100%', padding: '30px', background: 'var(--bg-card)', border: '1px solid var(--border-default)', borderRadius: '3px', textAlign: 'center' }}><div className="eyebrow" style={{ justifyContent: 'center', marginBottom: '12px' }}><span className="dot" />Workspace handoff</div><h1 style={{ margin: '0 0 10px', color: 'var(--text-primary)', fontSize: 'clamp(26px, 4vw, 36px)' }}>Your account is ready for the next step.</h1><p style={{ margin: '0 auto 22px', maxWidth: '460px', color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.7 }}>The authentication prototype completed successfully. Connect your production identity provider and API workspace before enabling live customer access.</p><div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}><Link href="/docs" className="btn btn-primary">Read API docs</Link><Link href="/" className="btn btn-secondary">Return home</Link></div></section></main><Footer /></div>;
+}

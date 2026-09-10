@@ -1,0 +1,13 @@
+import Link from 'next/link';
+import Navbar from '@/components/global/Navbar';
+import Footer from '@/components/global/Footer';
+
+const releases = [
+  { version: 'v1.2.0', date: 'September 2026', title: 'Sharper decisions at the edge', items: ['Added confidence and reason codes to email decisions.', 'Improved domain intelligence refresh coverage.', 'Expanded request logs with latency and response metadata.'] },
+  { version: 'v1.1.0', date: 'August 2026', title: 'Developer workspace foundations', items: ['Introduced API key management and scoped access.', 'Added the checker playground for fast integration tests.', 'Published the first dashboard usage and log views.'] },
+  { version: 'v1.0.0', date: 'July 2026', title: 'TempCheck API launch', items: ['Released the check-email REST endpoint.', 'Added disposable-domain and provider classification.', 'Published authentication, limits, and response documentation.'] },
+];
+
+export default function ChangelogPage() {
+  return <div className="app-layout" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)' }}><Navbar /><main style={{ flex: '1 0 auto', padding: '48px 24px 72px' }}><div style={{ maxWidth: '880px', margin: '0 auto' }}><div className="eyebrow" style={{ marginBottom: '12px' }}><span className="dot" />Product updates</div><h1 style={{ margin: '0 0 10px', color: 'var(--text-primary)', fontSize: 'clamp(28px, 4vw, 38px)' }}>What changed in TempCheck</h1><p style={{ maxWidth: '620px', margin: '0 0 34px', color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.65 }}>A concise record of API contracts, developer tools, and reliability improvements shipped to the platform.</p><div style={{ display: 'grid', gap: '14px' }}>{releases.map((release) => <article key={release.version} style={{ padding: '22px', background: 'var(--bg-card)', border: '1px solid var(--border-default)', borderRadius: '3px' }}><div style={{ display: 'flex', justifyContent: 'space-between', gap: '14px', marginBottom: '8px' }}><span style={{ color: 'var(--primary)', fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', fontWeight: 700 }}>{release.version}</span><span style={{ color: 'var(--text-muted)', fontSize: '11px' }}>{release.date}</span></div><h2 style={{ margin: '0 0 10px', color: 'var(--text-primary)', fontSize: '18px' }}>{release.title}</h2><ul style={{ margin: 0, paddingLeft: '18px', color: 'var(--text-secondary)', fontSize: '13px', lineHeight: 1.7 }}>{release.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div><Link href="/docs" className="btn btn-secondary" style={{ marginTop: '24px' }}>Read the API docs -&gt;</Link></div></main><Footer /></div>;
+}
