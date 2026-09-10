@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -10,6 +10,15 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileSection, setMobileSection] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   // Sleek Vector SVG Icons
   const icons = {
@@ -536,8 +545,12 @@ export default function Navbar() {
         </Link>
         <button
           className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          onClick={() => {
+            setMobileMenuOpen((open) => !open);
+            setMobileSection(null);
+          }}
           aria-label="Toggle Navigation Menu"
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? '✕' : '☰'}
         </button>
@@ -545,34 +558,48 @@ export default function Navbar() {
 
       {/* Mobile Responsive Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="mobile-nav-drawer" style={{ borderRadius: '2px' }}>
-          <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>
-            Products
-          </div>
-          <Link href="/docs" onClick={() => setMobileMenuOpen(false)}>Docs</Link>
-          <Link href="/integrations" onClick={() => setMobileMenuOpen(false)}>Integrations</Link>
-          <Link href="/status" onClick={() => setMobileMenuOpen(false)}>Live Status</Link>
+        <div className="mobile-nav-drawer">
+          {[
+            { label: 'Products', key: 'products', links: productLinks },
+            { label: 'Resources', key: 'resources', links: resourceLinks },
+            { label: 'Company', key: 'company', links: companyLinks },
+          ].map((section) => {
+            const isOpen = mobileSection === section.key;
 
-          <div className="mobile-nav-divider" />
-          <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>
-            Resources &amp; Company
-          </div>
-          <Link href="/pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
-          <Link href="/faq" onClick={() => setMobileMenuOpen(false)}>FAQ</Link>
-          <Link href="/blog" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
-          <Link href="/about" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
-          <Link href="/careers" onClick={() => setMobileMenuOpen(false)}>Careers</Link>
-          <Link href="/sla" onClick={() => setMobileMenuOpen(false)}>SLA Guarantee</Link>
-          <Link href="/terms" onClick={() => setMobileMenuOpen(false)}>Terms of Service</Link>
-          <Link href="/privacy" onClick={() => setMobileMenuOpen(false)}>Privacy Policy</Link>
+            return (
+              <div className="mobile-nav-group" key={section.key}>
+                <button
+                  className="mobile-nav-group-toggle"
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setMobileSection(isOpen ? null : section.key)}
+                >
+                  <span>{section.label}</span>
+                  <span className={`mobile-nav-chevron${isOpen ? ' is-open' : ''}`} aria-hidden="true">⌄</span>
+                </button>
+                {isOpen && (
+                  <div className="mobile-nav-group-items">
+                    {section.links.map((item) => (
+                      <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
+                        <span>{item.title}</span>
+                        <small>{item.desc}</small>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
 
-          <div className="mobile-nav-divider" />
-          <Link href="/login" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--primary)' }}>
-            Sign In →
-          </Link>
-          <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="btn btn-primary" style={{ justifyContent: 'center', borderRadius: '2px !important' }}>
-            Get API Key
-          </Link>
+          <Link className="mobile-nav-direct-link" href="/pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
+          <div className="mobile-nav-actions">
+            <Link href="/login" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--primary)' }}>
+              Sign In →
+            </Link>
+            <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="btn btn-primary">
+              Get API Key
+            </Link>
+          </div>
         </div>
       )}
     </header>
