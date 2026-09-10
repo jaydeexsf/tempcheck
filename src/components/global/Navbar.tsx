@@ -111,19 +111,35 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="nav" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
+    <header
+      className="nav"
+      style={{
+        position: 'sticky',
+        top: '18px',
+        zIndex: 1000,
+        width: 'calc(100% - 32px)',
+        maxWidth: '1280px',
+        margin: '18px auto 0',
+        border: '1px solid rgba(0, 240, 255, 0.18)',
+        borderRadius: '3px',
+        boxShadow: '0 18px 40px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255,255,255,0.04)',
+        background: 'rgba(4, 17, 28, 0.74)',
+        backdropFilter: 'blur(16px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+      }}
+    >
       {/* Brand Logo */}
       <div className="nav-brand">
         <Link href="/" className="logo">
           <Image
-            src="/assets/images/logo.png"
-            alt="TempMail Logo"
-            width={32}
-            height={32}
+            src="/TempCheckLogo.png"
+            alt="TempCheck Logo"
+            width={190}
+            height={64}
+            className="navbar-logo-image"
             style={{ objectFit: 'contain' }}
             priority
           />
-          <span className="logo-text">TempMail</span>
         </Link>
       </div>
 

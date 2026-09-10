@@ -50,7 +50,7 @@ html::-webkit-scrollbar-track {
 html::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #32F5FF 0%, #00AAB8 100%);
     border: 2px solid #02090F;
-    border-radius: 3px;
+    border-radius: 3px !important;
     box-shadow: 0 0 8px rgba(0, 240, 255, 0.35);
 }
 
@@ -72,35 +72,35 @@ a {
 /* ---------- FLOATING CENTERED PILL NAVBAR (DARK MODE) ---------- */
 .nav {
     flex: 0 0 auto;
-    height: 58px;
+    min-height: 62px;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    padding: 0 32px;
-    background: rgba(3, 12, 20, 0.88);
+    padding: 8px 18px 8px 18px;
+    background: rgba(3, 12, 20, 0.82);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+    border: 1px solid rgba(0, 240, 255, 0.16);
+    border-radius: 3px;
     position: sticky;
-    top: 0;
+    top: 18px;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .nav::after {
     content: "";
     position: absolute;
-    bottom: -1px;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 25%);
     pointer-events: none;
 }
 
 .nav-brand {
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 .logo {
@@ -112,6 +112,12 @@ a {
 
 .logo:hover {
     transform: none !important;
+}
+
+.navbar-logo-image {
+    width: clamp(132px, 15vw, 180px);
+    height: auto;
+    max-width: 100%;
 }
 
 .logo-text {
@@ -135,19 +141,19 @@ a {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    background: rgba(4, 18, 30, 0.85);
-    border: 1px solid rgba(0, 240, 255, 0.22);
-    border-radius: 999px;
+    background: rgba(4, 18, 30, 0.65);
+    border: 1px solid rgba(0, 240, 255, 0.12);
+    border-radius: 3px;
     padding: 4px 6px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.05);
+    box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.04);
 }
 
 .pill-item {
     font-size: 12.5px;
     font-weight: 500;
     color: #8DA9B4;
-    padding: 5px 16px;
-    border-radius: 999px;
+    padding: 6px 14px;
+    border-radius: 2px;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -160,10 +166,10 @@ a {
     font-size: 12.5px;
     font-weight: 700;
     color: #031019;
-    background: #00F0FF;
-    padding: 5px 18px;
-    border-radius: 999px;
-    box-shadow: 0 0 14px rgba(0, 240, 255, 0.45);
+    background: rgba(0, 240, 255, 0.95);
+    padding: 6px 16px;
+    border-radius: 2px;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2347,7 +2353,7 @@ a {
 /* ---------- RESPONSIVE MEDIA QUERIES ---------- */
 @media (max-width: 1100px) {
     .nav {
-        grid-template-columns: auto 1fr auto;
+        grid-template-columns: minmax(0, 1fr) auto;
     }
 
     .nav-center {
@@ -2357,6 +2363,20 @@ a {
     .demo-panel-grid {
         grid-template-columns: 1fr;
         gap: 32px;
+    }
+
+    .api-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 36px 32px;
+    }
+
+    .api-right-col {
+        min-height: 320px !important;
+    }
+
+    .demo-screenshot-section {
+        margin-top: 36px;
     }
 
     .problem-solution-banner {
@@ -2369,6 +2389,10 @@ a {
         margin: 12px 0;
     }
 
+    .ps-arrow svg {
+        transform: rotate(90deg);
+    }
+
     .pricing-grid-3col {
         grid-template-columns: 1fr;
         gap: 28px;
@@ -2378,6 +2402,10 @@ a {
         grid-template-columns: repeat(2, 1fr);
         display: grid;
         gap: 16px;
+    }
+
+    .final-cta-container {
+        padding: 32px 24px;
     }
 }
 
@@ -2961,8 +2989,96 @@ a {
         font-size: 9px;
     }
 
-    .stats, .features-grid, .footer-links-grid, .pricing-bottom-bar {
+    .stats, .features-grid, .pricing-bottom-bar {
         grid-template-columns: 1fr;
+    }
+
+    .footer-links-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-container {
+        gap: 32px;
+    }
+
+    .footer-tagline {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        line-height: 1.5;
+    }
+
+    .footer-socials {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    .api-container,
+    .reliability-container {
+        padding: 28px 20px;
+    }
+
+    .section-title,
+    .final-title,
+    .demo-headline {
+        font-size: clamp(21px, 7vw, 27px);
+        line-height: 1.12;
+        overflow-wrap: anywhere;
+    }
+
+    .api-actions,
+    .final-ctas {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .api-actions .btn,
+    .final-ctas .btn {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .demo-screenshot-section {
+        margin-top: 28px;
+        margin-bottom: 40px;
+    }
+
+    .demo-panel-grid {
+        gap: 24px;
+    }
+
+    .demo-left-panel {
+        min-width: 0;
+    }
+
+    .demo-subhead,
+    .section-desc,
+    .final-desc {
+        max-width: 100%;
+    }
+
+    .auth-visual-copy h2 {
+        overflow-wrap: anywhere;
+    }
+
+    .rel-item {
+        gap: 12px;
+    }
+
+    .rel-text {
+        overflow-wrap: anywhere;
+    }
+
+    .ps-title,
+    .ps-desc,
+    .ps-bullet-list li {
+        overflow-wrap: anywhere;
     }
 
     .result-card-details {
@@ -2976,6 +3092,14 @@ a {
     .cyan-action-btn {
         width: 100%;
         justify-content: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .features-grid,
+    .footer-links-grid,
+    .pricing-bottom-bar {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -3053,6 +3177,12 @@ a {
 @media (max-width: 1100px) {
     .nav {
         grid-template-columns: auto 1fr auto;
+    }
+
+    .nav-right {
+        grid-column: 2;
+        justify-self: end;
+        margin-left: auto;
     }
 
     .mobile-menu-btn {
