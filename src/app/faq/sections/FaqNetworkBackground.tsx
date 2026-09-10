@@ -134,18 +134,21 @@ export default function FaqNetworkBackground() {
     window.addEventListener('resize', resize);
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
+    const coreScale = { value: 1 };
+    const nodeScale = { value: 1 };
+    const cardLift = { value: 0 };
     const motionTimeline = reducedMotion ? null : gsap.timeline({ repeat: -1 });
     motionTimeline
-      ?.to(core.scale, { x: 1.06, y: 1.06, z: 1.06, duration: 2.8, ease: 'sine.inOut', yoyo: true })
-      .to(nodeGroup.children, { scale: 1.35, opacity: 1, duration: 0.65, stagger: 0.18, ease: 'power2.out' }, 0)
-      .to(nodeGroup.children, { scale: 1, opacity: 0.55, duration: 1.2, stagger: 0.18, ease: 'power2.in' }, 0.65)
+      ?.to(coreScale, { value: 1.06, duration: 2.8, ease: 'sine.inOut', yoyo: true, repeat: 1, onUpdate: () => core.scale.setScalar(coreScale.value) })
+      .to(nodeScale, { value: 1.35, duration: 0.65, ease: 'power2.out', onUpdate: () => nodeGroup.children.forEach((child) => child.scale.setScalar(nodeScale.value)) }, 0)
+      .to(nodeScale, { value: 1, duration: 1.2, ease: 'power2.in', onUpdate: () => nodeGroup.children.forEach((child) => child.scale.setScalar(nodeScale.value)) }, 0.65)
       .to(signal.position, { x: nodePositions[1].x, y: nodePositions[1].y, z: nodePositions[1].z, duration: 1.8, ease: 'power1.inOut' }, 0)
       .to(signal.position, { x: nodePositions[2].x, y: nodePositions[2].y, z: nodePositions[2].z, duration: 1.8, ease: 'power1.inOut' })
       .to(signal.position, { x: nodePositions[3].x, y: nodePositions[3].y, z: nodePositions[3].z, duration: 1.8, ease: 'power1.inOut' })
       .to(signal.position, { x: nodePositions[4].x, y: nodePositions[4].y, z: nodePositions[4].z, duration: 1.8, ease: 'power1.inOut' })
       .to(signal.position, { x: nodePositions[5].x, y: nodePositions[5].y, z: nodePositions[5].z, duration: 1.8, ease: 'power1.inOut' })
       .to(signal.position, { x: nodePositions[0].x, y: nodePositions[0].y, z: nodePositions[0].z, duration: 1.8, ease: 'power1.inOut' })
-      .to(faqCards.children, { y: '+=0.16', duration: 2.4, stagger: 0.2, ease: 'sine.inOut', yoyo: true }, 0.4);
+      .to(cardLift, { value: 0.16, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: 1, onUpdate: () => faqCards.children.forEach((child, index) => { child.position.y = cardPositions[Math.floor(index / 2)].y + cardLift.value; }) }, 0.4);
 
     const render = () => {
       network.rotation.z += (pointer.x - network.rotation.z) * 0.012;
