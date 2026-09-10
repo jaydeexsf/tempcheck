@@ -4,6 +4,7 @@ import Footer from '@/components/global/Footer';
 import FaqHeroSection from './sections/FaqHeroSection';
 import FaqAccordionSection from './sections/FaqAccordionSection';
 import FaqContactSection from './sections/FaqContactSection';
+import FaqNetworkBackground from './sections/FaqNetworkBackground';
 
 export const metadata = {
   title: 'FAQ | TempCheck Developer Platform',
@@ -12,9 +13,10 @@ export const metadata = {
 
 export default function FaqPage() {
   return (
-    <div className="app-layout" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)' }}>
+    <div className="app-layout faq-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)' }}>
       <Navbar />
-      <main style={{ flex: 1 }}>
+      <main className="faq-page-main" style={{ flex: 1 }}>
+        <FaqNetworkBackground />
         <FaqHeroSection />
         <FaqAccordionSection />
         <FaqContactSection />

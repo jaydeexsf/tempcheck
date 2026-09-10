@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface FaqItem {
   question: string;
@@ -125,11 +126,12 @@ export default function FaqAccordionSection() {
             No matching questions found for &quot;{searchTerm}&quot;.
           </div>
         ) : (
-          filteredFaqs.map((faq, i) => {
-            const isOpen = openIdx === i;
+          filteredFaqs.map((faq) => {
+            const faqKey = faqs.indexOf(faq);
+            const isOpen = openIdx === faqKey;
             return (
               <div
-                key={i}
+                key={faq.question}
                 style={{
                   background: 'var(--bg-card)',
                   border: '1px solid var(--border-default)',
@@ -139,7 +141,7 @@ export default function FaqAccordionSection() {
                 }}
               >
                 <button
-                  onClick={() => setOpenIdx(isOpen ? null : i)}
+                  onClick={() => setOpenIdx(isOpen ? null : faqKey)}
                   style={{
                     width: '100%',
                     padding: '14px 18px',
@@ -176,20 +178,31 @@ export default function FaqAccordionSection() {
                   </span>
                 </button>
 
-                {isOpen && (
-                  <div
-                    style={{
-                      padding: '0 18px 16px 18px',
-                      fontSize: '13.5px',
-                      lineHeight: 1.6,
-                      color: 'var(--text-secondary)',
-                      borderTop: '1px solid var(--border-subtle)',
-                      paddingTop: '12px',
-                    }}
-                  >
-                    {faq.answer}
-                  </div>
-                )}
+                <AnimatePresence initial={false} mode="popLayout">
+                  {isOpen && (
+                    <motion.div
+                      key={`${faq.question}-answer`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ display: 'block', overflow: 'hidden' }}
+                    >
+                      <div
+                        style={{
+                          padding: '0 18px 16px 18px',
+                          fontSize: '13.5px',
+                          lineHeight: 1.6,
+                          color: 'var(--text-secondary)',
+                          borderTop: '1px solid var(--border-subtle)',
+                          paddingTop: '12px',
+                        }}
+                      >
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })
