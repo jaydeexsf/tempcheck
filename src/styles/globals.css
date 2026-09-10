@@ -3103,6 +3103,71 @@ a {
     }
 }
 
+/* ---------- STATUS PAGE RESPONSIVE LAYOUT ---------- */
+@media (max-width: 760px) {
+    .status-page-main {
+        padding: 32px 16px 48px !important;
+    }
+
+    .status-health-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .status-service-row {
+        align-items: flex-start !important;
+    }
+
+    .status-service-row > div {
+        min-width: 0;
+    }
+
+    .status-service-row > div span {
+        display: block;
+        overflow-wrap: anywhere;
+    }
+
+    .status-uptime-bars {
+        grid-template-columns: repeat(15, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(2, 24px);
+        height: auto !important;
+    }
+
+    .status-uptime-meta {
+        flex-wrap: wrap;
+        gap: 4px 12px;
+    }
+
+    .status-actions .btn {
+        flex: 1 1 140px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 430px) {
+    .status-page-content > section,
+    .status-health-grid > section {
+        padding: 14px !important;
+    }
+
+    .status-service-row {
+        flex-direction: column;
+        gap: 7px !important;
+    }
+
+    .status-service-row > span {
+        align-self: flex-start;
+    }
+
+    .status-uptime-bars {
+        grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(3, 18px);
+    }
+
+    .status-actions .btn {
+        flex-basis: 100%;
+    }
+}
+
 /* ---------- RESPONSIVE MOBILE NAVBAR DRAWER ---------- */
 .mobile-menu-btn {
     display: none;
