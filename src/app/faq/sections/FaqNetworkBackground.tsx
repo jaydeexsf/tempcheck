@@ -76,6 +76,37 @@ export default function FaqNetworkBackground() {
     signal.position.copy(nodePositions[0]);
     network.add(signal);
 
+    const faqCards = new THREE.Group();
+    const cardGeometry = new THREE.BoxGeometry(0.9, 0.56, 0.035);
+    const cardMaterial = new THREE.MeshBasicMaterial({
+      color: 0x062536,
+      transparent: true,
+      opacity: 0.72,
+    });
+    const cardEdgeMaterial = new THREE.LineBasicMaterial({
+      color: 0x00f0ff,
+      transparent: true,
+      opacity: 0.34,
+    });
+    const cardPositions = [
+      new THREE.Vector3(-2.9, 1.55, -0.25),
+      new THREE.Vector3(2.85, 1.3, -0.2),
+      new THREE.Vector3(2.6, -1.65, 0.1),
+    ];
+
+    cardPositions.forEach((position, index) => {
+      const card = new THREE.Mesh(cardGeometry, cardMaterial);
+      card.position.copy(position);
+      card.rotation.z = index === 1 ? -0.14 : index === 2 ? 0.12 : 0.08;
+      faqCards.add(card);
+
+      const edge = new THREE.LineSegments(new THREE.EdgesGeometry(cardGeometry), cardEdgeMaterial);
+      edge.position.copy(card.position);
+      edge.rotation.copy(card.rotation);
+      faqCards.add(edge);
+    });
+    network.add(faqCards);
+
     const lineGeometry = new THREE.BufferGeometry().setFromPoints(
       nodePositions.flatMap((position, index) => [position, nodePositions[(index + 1) % nodePositions.length]]),
     );
@@ -113,7 +144,8 @@ export default function FaqNetworkBackground() {
       .to(signal.position, { x: nodePositions[3].x, y: nodePositions[3].y, z: nodePositions[3].z, duration: 1.8, ease: 'power1.inOut' })
       .to(signal.position, { x: nodePositions[4].x, y: nodePositions[4].y, z: nodePositions[4].z, duration: 1.8, ease: 'power1.inOut' })
       .to(signal.position, { x: nodePositions[5].x, y: nodePositions[5].y, z: nodePositions[5].z, duration: 1.8, ease: 'power1.inOut' })
-      .to(signal.position, { x: nodePositions[0].x, y: nodePositions[0].y, z: nodePositions[0].z, duration: 1.8, ease: 'power1.inOut' });
+      .to(signal.position, { x: nodePositions[0].x, y: nodePositions[0].y, z: nodePositions[0].z, duration: 1.8, ease: 'power1.inOut' })
+      .to(faqCards.children, { y: '+=0.16', duration: 2.4, stagger: 0.2, ease: 'sine.inOut', yoyo: true }, 0.4);
 
     const render = () => {
       network.rotation.z += (pointer.x - network.rotation.z) * 0.012;
@@ -136,6 +168,12 @@ export default function FaqNetworkBackground() {
       orbitMaterials.forEach((material) => material.dispose());
       lineGeometry.dispose();
       (lines.material as THREE.Material).dispose();
+      cardGeometry.dispose();
+      cardMaterial.dispose();
+      cardEdgeMaterial.dispose();
+      faqCards.children.forEach((child) => {
+        if (child instanceof THREE.LineSegments) child.geometry.dispose();
+      });
       signal.geometry.dispose();
       signalMaterial.dispose();
       renderer.dispose();

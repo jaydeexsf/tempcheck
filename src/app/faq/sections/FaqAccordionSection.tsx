@@ -59,6 +59,7 @@ export default function FaqAccordionSection() {
 
   return (
     <section
+      className="faq-accordion-section"
       style={{
         padding: '0 24px 48px 24px',
         maxWidth: '900px',
@@ -133,7 +134,7 @@ export default function FaqAccordionSection() {
               <div
                 key={faq.question}
                 style={{
-                  background: 'var(--bg-card)',
+                  background: 'rgba(4, 23, 37, 0.94)',
                   border: '1px solid var(--border-default)',
                   borderRadius: '2px',
                   overflow: 'hidden',
