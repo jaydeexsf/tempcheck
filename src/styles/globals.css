@@ -165,8 +165,8 @@ a {
 .active-pill {
     font-size: 12.5px;
     font-weight: 700;
-    color: #031019;
-    background: rgba(0, 240, 255, 0.95);
+    color: #031019 !important;
+    background: rgba(0, 240, 255, 0.95) !important;
     padding: 6px 16px;
     border-radius: 2px;
     box-shadow: 0 0 14px rgba(0, 240, 255, 0.35);

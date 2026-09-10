@@ -114,8 +114,6 @@ export default function Navbar() {
     { title: 'About TempCheck', desc: 'Global weather & email verification tech', href: '/about', icon: icons.about },
     { title: 'Careers', desc: 'Join our engineering team', href: '/careers', icon: icons.about },
     { title: 'SLA Guarantee', desc: '99.9% uptime SLA & credit policies', href: '/sla', icon: icons.sla },
-    { title: 'Terms of Service', desc: 'Developer API legal agreement', href: '/terms', icon: icons.terms },
-    { title: 'Privacy Policy', desc: 'GDPR, data protection & processing', href: '/privacy', icon: icons.privacy },
     { title: 'Support Desk', desc: 'Contact engineering & sales team', href: '/contact', icon: icons.contact },
   ];
 
