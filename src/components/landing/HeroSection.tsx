@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import CyberGlobe from '../CyberGlobe';
 import Button from '../ui/Button';
 
@@ -10,12 +9,7 @@ export default function HeroSection() {
     <>
       <section className="hero">
         {/* Left Column: Hero Copy & CTA */}
-        <motion.div
-          className="hero-left"
-          initial={{ opacity: 0, x: -24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div className="hero-left">
           <div className="eyebrow">
             <span className="dot"></span>
             REAL-TIME DISPOSABLE EMAIL DETECTION
@@ -42,28 +36,18 @@ export default function HeroSection() {
               Live Demo
             </Button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Right Column: Interactive 3D Cyber Earth Globe */}
-        <motion.div
-          className="hero-right"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-        >
+        <div className="hero-right">
           <div className="globe-wrapper">
             <CyberGlobe />
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Full-Width Horizontal Stats Metrics Bar Spread Across Screen */}
-      <motion.div
-        className="stats-wrap"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
+      <div className="stats-wrap">
         <div className="stats">
           <div className="stat">
             <div className="stat-icon">
@@ -115,7 +99,7 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }
